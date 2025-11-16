@@ -53,13 +53,13 @@ class SessionTimer(
                         )
                     }
                     TableType.ONE_BREATH -> {
-                        // Hold -> Breath(one-breath)
+                        // Breath(one-breath) -> Hold
                         runPhase(
                             tableType = tableType,
                             roundIndex = roundIndex,
                             totalRounds = totalRounds,
-                            phase = SessionPhase.HOLD,
-                            durationMillis = round.holdMillis,
+                            phase = SessionPhase.BREATH,
+                            durationMillis = round.breathMillis,
                             callbacks = callbacks
                         )
                         if (!isActive) break
@@ -67,8 +67,8 @@ class SessionTimer(
                             tableType = tableType,
                             roundIndex = roundIndex,
                             totalRounds = totalRounds,
-                            phase = SessionPhase.BREATH,
-                            durationMillis = round.breathMillis,
+                            phase = SessionPhase.HOLD,
+                            durationMillis = round.holdMillis,
                             callbacks = callbacks
                         )
                     }

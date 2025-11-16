@@ -13,6 +13,9 @@ import kotlinx.coroutines.flow.asStateFlow
 
 class Co2ViewModel : ViewModel() {
 
+    private val _minBreathMillis = MutableStateFlow(15_000L) // 기본 15초
+    val minBreathMillis: StateFlow<Long> = _minBreathMillis.asStateFlow()
+
     private val _holdMillis = MutableStateFlow(60_000L) // 기본 1분
     val holdMillis: StateFlow<Long> = _holdMillis.asStateFlow()
 
@@ -34,8 +37,23 @@ class Co2ViewModel : ViewModel() {
     private fun updateRounds() {
         _rounds.value = TableGenerator.generateCo2Table(
             roundCount = _rounds.value.size.takeIf { it > 0 } ?: 8,
+            minBreathMillis = _minBreathMillis.value,
             holdMillis = _holdMillis.value
         )
+    }
+
+    fun changeMinBreathTime(delta: Long) {
+        if (_isRunning.value) return
+        val newValue = (_minBreathMillis.value + delta).coerceIn(10_000L, 60_000L) // 최소 10초, 최대 60초
+        _minBreathMillis.value = newValue
+        updateRounds()
+    }
+
+    fun setMinBreathTime(millis: Long) {
+        if (_isRunning.value) return
+        val newValue = millis.coerceIn(10_000L, 60_000L) // 최소 10초, 최대 60초
+        _minBreathMillis.value = newValue
+        updateRounds()
     }
 
     fun changeHoldTime(delta: Long) {
@@ -57,6 +75,7 @@ class Co2ViewModel : ViewModel() {
         val currentCount = _rounds.value.size
         _rounds.value = TableGenerator.generateCo2Table(
             roundCount = currentCount + 1,
+            minBreathMillis = _minBreathMillis.value,
             holdMillis = _holdMillis.value
         )
     }
@@ -67,6 +86,7 @@ class Co2ViewModel : ViewModel() {
         if (currentCount <= 6) return // 최소 6라운드 보장
         _rounds.value = TableGenerator.generateCo2Table(
             roundCount = currentCount - 1,
+            minBreathMillis = _minBreathMillis.value,
             holdMillis = _holdMillis.value
         )
     }

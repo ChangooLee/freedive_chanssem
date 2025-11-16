@@ -5,7 +5,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.chanssem.freedive.R
 
 @Composable
 fun TimeInputDialog(
@@ -22,7 +25,7 @@ fun TimeInputDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("시간 설정") },
+        title = { Text(stringResource(R.string.time_input_title)) },
         text = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
@@ -40,7 +43,7 @@ fun TimeInputDialog(
                                 minutesText = newValue
                             }
                         },
-                        label = { Text("분") },
+                        label = { Text(stringResource(R.string.minutes)) },
                         modifier = Modifier.weight(1f),
                         singleLine = true
                     )
@@ -52,7 +55,7 @@ fun TimeInputDialog(
                                 secondsText = newValue
                             }
                         },
-                        label = { Text("초") },
+                        label = { Text(stringResource(R.string.seconds)) },
                         modifier = Modifier.weight(1f),
                         singleLine = true
                     )
@@ -70,12 +73,12 @@ fun TimeInputDialog(
                     }
                 }
             ) {
-                Text("확인")
+                Text(stringResource(R.string.confirm))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("취소")
+                Text(stringResource(R.string.cancel))
             }
         }
     )

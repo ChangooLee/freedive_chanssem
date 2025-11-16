@@ -10,9 +10,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.chanssem.freedive.R
 import com.chanssem.freedive.model.SessionPhase
 import com.chanssem.freedive.viewmodel.OneBreathViewModel
 
@@ -50,7 +53,7 @@ fun OneBreathScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Round ${currentState!!.currentRoundIndex + 1} / ${currentState!!.totalRounds}",
+                        text = stringResource(R.string.round_progress, currentState!!.currentRoundIndex + 1, currentState!!.totalRounds),
                         style = MaterialTheme.typography.titleMedium
                     )
                     Spacer(modifier = Modifier.height(16.dp))
@@ -63,36 +66,7 @@ fun OneBreathScreen(
                             modifier = Modifier.weight(1f)
                         ) {
                             Text(
-                                text = "Hold",
-                                style = MaterialTheme.typography.bodyLarge,
-                                color = if (currentState!!.phase == SessionPhase.HOLD) {
-                                    MaterialTheme.colorScheme.primary
-                                } else {
-                                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-                                }
-                            )
-                            Text(
-                                text = if (currentState!!.phase == SessionPhase.HOLD) {
-                                    TimeFormatter.formatMillis(currentState!!.remainingMillis)
-                                } else {
-                                    currentRound?.let { TimeFormatter.formatMillis(it.holdMillis) } ?: "00:00"
-                                },
-                                style = MaterialTheme.typography.headlineMedium,
-                                fontWeight = FontWeight.Bold,
-                                color = if (currentState!!.phase == SessionPhase.HOLD) {
-                                    MaterialTheme.colorScheme.primary
-                                } else {
-                                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-                                }
-                            )
-                        }
-                        VerticalDivider(modifier = Modifier.height(60.dp))
-                        Column(
-                            horizontalAlignment = Alignment.CenterHorizontally,
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(
-                                text = "One-breath",
+                                text = stringResource(R.string.one_breath_label),
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = if (currentState!!.phase == SessionPhase.BREATH) {
                                     MaterialTheme.colorScheme.primary
@@ -115,6 +89,35 @@ fun OneBreathScreen(
                                 }
                             )
                         }
+                        VerticalDivider(modifier = Modifier.height(60.dp))
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(
+                                text = stringResource(R.string.hold),
+                                style = MaterialTheme.typography.bodyLarge,
+                                color = if (currentState!!.phase == SessionPhase.HOLD) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                                }
+                            )
+                            Text(
+                                text = if (currentState!!.phase == SessionPhase.HOLD) {
+                                    TimeFormatter.formatMillis(currentState!!.remainingMillis)
+                                } else {
+                                    currentRound?.let { TimeFormatter.formatMillis(it.holdMillis) } ?: "00:00"
+                                },
+                                style = MaterialTheme.typography.headlineMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = if (currentState!!.phase == SessionPhase.HOLD) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+                                }
+                            )
+                        }
                     }
                 }
             }
@@ -124,72 +127,19 @@ fun OneBreathScreen(
             Card(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(12.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    // 좌측: 숨참기 시간
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(12.dp),
+                        horizontalArrangement = Arrangement.SpaceEvenly
+                    ) {
+                    // 좌측: 원브레스 시간
                     Column(
                         modifier = Modifier.weight(1f),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = "숨참기 시간",
-                            style = MaterialTheme.typography.titleSmall
-                        )
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Center
-                        ) {
-                            IconButton(
-                                onClick = { viewModel.changeHoldTime(-15_000L) },
-                                enabled = holdMillis > 15_000L,
-                                modifier = Modifier.size(40.dp)
-                            ) {
-                                Text(
-                                    text = "−",
-                                    style = MaterialTheme.typography.titleLarge,
-                                    color = MaterialTheme.colorScheme.primary
-                                )
-                            }
-                            Text(
-                                text = TimeFormatter.formatMillis(holdMillis),
-                                style = MaterialTheme.typography.titleLarge,
-                                fontWeight = FontWeight.Bold,
-                                modifier = Modifier
-                                    .clickable {
-                                        showHoldTimeDialog = true
-                                    }
-                                    .padding(horizontal = 12.dp)
-                            )
-                            IconButton(
-                                onClick = { viewModel.changeHoldTime(15_000L) },
-                                enabled = true,
-                                modifier = Modifier.size(40.dp)
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Add,
-                                    contentDescription = "Increase",
-                                    tint = MaterialTheme.colorScheme.primary,
-                                    modifier = Modifier.size(24.dp)
-                                )
-                            }
-                        }
-                    }
-                    
-                    // 구분선
-                    VerticalDivider(modifier = Modifier.height(60.dp))
-                    
-                    // 우측: 원브레스 시간
-                    Column(
-                        modifier = Modifier.weight(1f),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "원브레스 시간",
+                            text = stringResource(R.string.one_breath_time),
                             style = MaterialTheme.typography.titleSmall
                         )
                         Spacer(modifier = Modifier.height(4.dp))
@@ -232,6 +182,59 @@ fun OneBreathScreen(
                             }
                         }
                     }
+                    
+                    // 구분선
+                    VerticalDivider(modifier = Modifier.height(60.dp))
+                    
+                    // 우측: 숨참기 시간
+                    Column(
+                        modifier = Modifier.weight(1f),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = stringResource(R.string.hold_time),
+                            style = MaterialTheme.typography.titleSmall
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+                            IconButton(
+                                onClick = { viewModel.changeHoldTime(-15_000L) },
+                                enabled = holdMillis > 15_000L,
+                                modifier = Modifier.size(40.dp)
+                            ) {
+                                Text(
+                                    text = "−",
+                                    style = MaterialTheme.typography.titleLarge,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                            Text(
+                                text = TimeFormatter.formatMillis(holdMillis),
+                                style = MaterialTheme.typography.titleLarge,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier
+                                    .clickable {
+                                        showHoldTimeDialog = true
+                                    }
+                                    .padding(horizontal = 12.dp)
+                            )
+                            IconButton(
+                                onClick = { viewModel.changeHoldTime(15_000L) },
+                                enabled = true,
+                                modifier = Modifier.size(40.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Add,
+                                    contentDescription = "Increase",
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+                        }
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -250,7 +253,8 @@ fun OneBreathScreen(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(8.dp),
+                            .height(48.dp)
+                            .padding(horizontal = 8.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -272,12 +276,13 @@ fun OneBreathScreen(
                         if (index + 1 >= 7 && rounds.size > 6) {
                             IconButton(
                                 onClick = { viewModel.removeRound(index) },
-                                enabled = !isRunning
+                                enabled = !isRunning,
+                                modifier = Modifier.size(48.dp)
                             ) {
                                 Text("-")
                             }
                         } else {
-                            Spacer(modifier = Modifier.width(48.dp))
+                            Spacer(modifier = Modifier.size(48.dp))
                         }
                     }
                     HorizontalDivider()
@@ -293,7 +298,7 @@ fun OneBreathScreen(
             modifier = Modifier.fillMaxWidth(),
             enabled = !isRunning && rounds.size < 12
         ) {
-            Text("라운드 추가 (+)")
+            Text(stringResource(R.string.add_round))
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -311,7 +316,7 @@ fun OneBreathScreen(
                 containerColor = if (isRunning) androidx.compose.ui.graphics.Color(0xFFD32F2F) else MaterialTheme.colorScheme.primary
             )
         ) {
-            Text(if (isRunning) "STOP" else "START")
+            Text(if (isRunning) stringResource(R.string.stop) else stringResource(R.string.start))
         }
     }
 

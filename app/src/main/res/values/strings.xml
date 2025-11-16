@@ -1,3 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Freedive Chanssem</string>
+    
+    <!-- Tabs -->
+    <string name="tab_co2">CO₂</string>
+    <string name="tab_o2">O₂</string>
+    <string name="tab_one_breath">One Breath</string>
+    
+    <!-- Time Settings -->
+    <string name="hold_time">숨참기 시간</string>
+    <string name="breath_time">휴식 시간</string>
+    <string name="min_breath_time">최소 휴식시간</string>
+    <string name="difficulty_expert">전문가</string>
+    <string name="difficulty_normal">일반</string>
+    <string name="difficulty_beginner">초보자</string>
+    <string name="target_hold_time">목표 숨참기 시간</string>
+    <string name="one_breath_time">원브레스 시간</string>
+    <string name="target_sta">목표 STA: %1$s</string>
+    
+    <!-- Buttons -->
+    <string name="add_round">라운드 추가 (+)</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    
+    <!-- Session -->
+    <string name="round_progress">Round %1$d / %2$d</string>
+    <string name="breath">Breath</string>
+    <string name="hold">Hold</string>
+    <string name="one_breath_label">One-breath</string>
+    
+    <!-- Dialog -->
+    <string name="session_stop_title">세션 중단</string>
+    <string name="session_stop_message">현재 세션이 진행 중입니다. 세션을 중단하고 다른 탭으로 이동하시겠습니까?</string>
+    <string name="stop_session">중단</string>
+    <string name="cancel">취소</string>
+    <string name="close">닫기</string>
+    
+    <!-- Time Input Dialog -->
+    <string name="time_input_title">시간 설정</string>
+    <string name="minutes">분</string>
+    <string name="seconds">초</string>
+    <string name="confirm">확인</string>
+    <string name="time_input_min_error">최소 15초 이상 입력해주세요</string>
+    
+    <!-- About Dialog -->
+    <string name="about_title">About freedive chanssem &amp; MOBA</string>
+    <string name="chanssem_title">🧑‍🏫 찬쌤 소개</string>
+    <string name="chanssem_description">PADI 프리다이빙 강사 트레이너이자 수중 촬영가 Chanssem(이찬구)이 만든 프리다이빙 트레이닝 앱입니다.\n\n안전하고 체계적인 CO₂ / O₂ / 원브레스 훈련을 통해, 더 오래·더 편안하게 숨을 참을 수 있도록 돕고자 합니다.\n\n프리다이빙 강습과 투어, 수중 촬영, 그리고 최신 소식은 인스타그램에서 확인하실 수 있습니다.</string>
+    <string name="moba_title">🌊 MOBA(Make Ocean Blue Again) 소개</string>
+    <string name="moba_description">MOBA(Make Ocean Blue Again)는 프리다이빙과 플로깅, 환경 캠페인을 통해 바다와 물을 지키는 행동을 이어가는 해양 보전 프로젝트입니다.\n\n기업과 다이버, 시민이 함께 참여하는 ESG 플로깅과 해양 정화 활동, 교육 프로그램을 통해 \"바다를 다시 푸르게\" 만들고자 합니다.\n\nMOBA에 대한 더 자세한 소개와 활동 내용은 아래 링크에서 확인하실 수 있습니다.</string>
+    
+    <!-- Language -->
+    <string name="language_korean">한국어</string>
+    <string name="language_english">English</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_chinese">中文</string>
+    <string name="select_language">언어 선택</string>
 </resources>

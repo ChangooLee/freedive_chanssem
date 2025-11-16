@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Freedive Chanssem</string>
+    
+    <!-- Tabs -->
+    <string name="tab_co2">CO₂</string>
+    <string name="tab_o2">O₂</string>
+    <string name="tab_one_breath">One Breath</string>
+    
+    <!-- Time Settings -->
+    <string name="hold_time">闭气时间</string>
+    <string name="breath_time">休息时间</string>
+    <string name="min_breath_time">最小休息时间</string>
+    <string name="difficulty_expert">专家</string>
+    <string name="difficulty_normal">普通</string>
+    <string name="difficulty_beginner">初学者</string>
+    <string name="target_hold_time">目标闭气时间</string>
+    <string name="one_breath_time">单次呼吸时间</string>
+    <string name="target_sta">目标STA: %1$s</string>
+    
+    <!-- Buttons -->
+    <string name="add_round">添加轮次 (+)</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    
+    <!-- Session -->
+    <string name="round_progress">Round %1$d / %2$d</string>
+    <string name="breath">Breath</string>
+    <string name="hold">Hold</string>
+    <string name="one_breath_label">One-breath</string>
+    
+    <!-- Dialog -->
+    <string name="session_stop_title">停止会话</string>
+    <string name="session_stop_message">当前会话正在进行中。是否要停止会话并切换到其他标签页？</string>
+    <string name="stop_session">停止</string>
+    <string name="cancel">取消</string>
+    <string name="close">关闭</string>
+    
+    <!-- Time Input Dialog -->
+    <string name="time_input_title">设置时间</string>
+    <string name="minutes">分钟</string>
+    <string name="seconds">秒</string>
+    <string name="confirm">确认</string>
+    <string name="time_input_min_error">请输入至少15秒</string>
+    
+    <!-- About Dialog -->
+    <string name="about_title">About freedive chanssem &amp; MOBA</string>
+    <string name="chanssem_title">🧑‍🏫 关于Chanssem</string>
+    <string name="chanssem_description">由PADI自由潜水教练培训师和水下摄影师Chanssem（李灿九）创建的自由潜水训练应用程序。\n\n通过安全系统的CO₂ / O₂ / 单次呼吸训练，我们旨在帮助您更长时间、更舒适地屏住呼吸。\n\n有关自由潜水课程、旅游、水下摄影和最新消息，请在Instagram上查看。</string>
+    <string name="moba_title">🌊 MOBA (Make Ocean Blue Again)</string>
+    <string name="moba_description">MOBA（Make Ocean Blue Again）是一个通过自由潜水、捡拾垃圾和环境运动来保护海洋和水的海洋保护项目。\n\n通过企业、潜水员和公民共同参与的ESG捡拾垃圾、海洋清理活动和教育计划，我们旨在\"让海洋再次变蓝\"。\n\n有关MOBA的详细信息和活动内容，请查看下面的链接。</string>
+    
+    <!-- Language -->
+    <string name="language_korean">한국어</string>
+    <string name="language_english">English</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_chinese">中文</string>
+    <string name="select_language">选择语言</string>
+</resources>
+

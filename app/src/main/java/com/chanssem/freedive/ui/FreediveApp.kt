@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Language
 import androidx.compose.material3.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.*
@@ -26,9 +28,13 @@ import com.chanssem.freedive.R
 import com.chanssem.freedive.ui.table.Co2TableScreen
 import com.chanssem.freedive.ui.table.O2TableScreen
 import com.chanssem.freedive.ui.table.OneBreathScreen
+import com.chanssem.freedive.utils.LanguageManager
 import com.chanssem.freedive.viewmodel.Co2ViewModel
 import com.chanssem.freedive.viewmodel.O2ViewModel
 import com.chanssem.freedive.viewmodel.OneBreathViewModel
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import android.app.Activity
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,9 +44,21 @@ fun FreediveApp(
     var selectedTab by remember { mutableStateOf(0) }
     var showAbout by remember { mutableStateOf(false) }
     var showTabChangeDialog by remember { mutableStateOf(false) }
+    var showLanguageDialog by remember { mutableStateOf(false) }
     var pendingTabIndex by remember { mutableStateOf<Int?>(null) }
-    val tabs = listOf("CO₂", "O₂", "One Breath")
     val context = LocalContext.current
+    
+    // 현재 언어 상태
+    val currentLanguage = remember {
+        LanguageManager.getSavedLanguage(context)
+    }
+    
+    // 탭 이름을 리소스에서 가져오기
+    val tabs = listOf(
+        stringResource(R.string.tab_co2),
+        stringResource(R.string.tab_o2),
+        stringResource(R.string.tab_one_breath)
+    )
     
     // 각 ViewModel 인스턴스 생성
     val co2ViewModel: Co2ViewModel = viewModel()
@@ -94,6 +112,12 @@ fun FreediveApp(
                     )
                 },
                 actions = {
+                    IconButton(onClick = { showLanguageDialog = true }) {
+                        Icon(
+                            imageVector = Icons.Filled.Language,
+                            contentDescription = stringResource(R.string.select_language)
+                        )
+                    }
                     IconButton(onClick = { showAbout = true }) {
                         Icon(
                             imageVector = Icons.Default.Info,
@@ -132,11 +156,11 @@ fun FreediveApp(
                         showTabChangeDialog = false
                         pendingTabIndex = null
                     },
-                    title = { Text("세션 중단") },
-                    text = { Text("현재 세션이 진행 중입니다. 세션을 중단하고 다른 탭으로 이동하시겠습니까?") },
+                    title = { Text(stringResource(R.string.session_stop_title)) },
+                    text = { Text(stringResource(R.string.session_stop_message)) },
                     confirmButton = {
                         TextButton(onClick = { confirmTabChange() }) {
-                            Text("중단")
+                            Text(stringResource(R.string.stop_session))
                         }
                     },
                     dismissButton = {
@@ -144,7 +168,61 @@ fun FreediveApp(
                             showTabChangeDialog = false
                             pendingTabIndex = null
                         }) {
-                            Text("취소")
+                            Text(stringResource(R.string.cancel))
+                        }
+                    }
+                )
+            }
+            
+            // 언어 선택 다이얼로그
+            if (showLanguageDialog) {
+                AlertDialog(
+                    onDismissRequest = { showLanguageDialog = false },
+                    title = { Text(stringResource(R.string.select_language)) },
+                    text = {
+                        Column {
+                            LanguageManager.Language.values().forEach { language ->
+                                val languageName = when (language) {
+                                    LanguageManager.Language.KOREAN -> stringResource(R.string.language_korean)
+                                    LanguageManager.Language.ENGLISH -> stringResource(R.string.language_english)
+                                    LanguageManager.Language.JAPANESE -> stringResource(R.string.language_japanese)
+                                    LanguageManager.Language.CHINESE -> stringResource(R.string.language_chinese)
+                                }
+                                val isSelected = currentLanguage == language
+                                
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clickable {
+                                            LanguageManager.saveLanguage(context, language)
+                                            showLanguageDialog = false
+                                            // 앱 재시작
+                                            (context as? Activity)?.recreate()
+                                        }
+                                        .padding(vertical = 12.dp, horizontal = 16.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = languageName,
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        modifier = Modifier.weight(1f),
+                                        color = if (isSelected) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                                    )
+                                    if (isSelected) {
+                                        Icon(
+                                            imageVector = Icons.Default.Check,
+                                            contentDescription = null,
+                                            tint = MaterialTheme.colorScheme.primary
+                                        )
+                                    }
+                                }
+                                HorizontalDivider()
+                            }
+                        }
+                    },
+                    confirmButton = {
+                        TextButton(onClick = { showLanguageDialog = false }) {
+                            Text(stringResource(R.string.close))
                         }
                     }
                 )
@@ -171,7 +249,7 @@ fun FreediveApp(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                "About freedive chanssem & MOBA",
+                                stringResource(R.string.about_title),
                                 style = MaterialTheme.typography.titleLarge,
                                 fontWeight = FontWeight.Bold
                             )
@@ -194,14 +272,12 @@ fun FreediveApp(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Text(
-                                "🧑‍🏫 찬쌤 소개",
+                                stringResource(R.string.chanssem_title),
                                 style = MaterialTheme.typography.titleMedium
                             )
                             Spacer(modifier = Modifier.height(8.dp))
                             Text(
-                                "PADI 프리다이빙 강사 트레이너이자 수중 촬영가 Chanssem(이찬구)이 만든 프리다이빙 트레이닝 앱입니다.\n\n" +
-                                        "안전하고 체계적인 CO₂ / O₂ / 원브레스 훈련을 통해, 더 오래·더 편안하게 숨을 참을 수 있도록 돕고자 합니다.\n\n" +
-                                        "프리다이빙 강습과 투어, 수중 촬영, 그리고 최신 소식은 인스타그램에서 확인하실 수 있습니다.",
+                                stringResource(R.string.chanssem_description),
                                 style = MaterialTheme.typography.bodyMedium
                             )
                             Spacer(modifier = Modifier.height(8.dp))
@@ -228,7 +304,7 @@ fun FreediveApp(
                             
                             Spacer(modifier = Modifier.height(24.dp))
                             Text(
-                                "🌊 MOBA(Make Ocean Blue Again) 소개",
+                                stringResource(R.string.moba_title),
                                 style = MaterialTheme.typography.titleMedium
                             )
                             Spacer(modifier = Modifier.height(8.dp))
@@ -239,9 +315,7 @@ fun FreediveApp(
                             )
                             Spacer(modifier = Modifier.height(8.dp))
                             Text(
-                                "MOBA(Make Ocean Blue Again)는 프리다이빙과 플로깅, 환경 캠페인을 통해 바다와 물을 지키는 행동을 이어가는 해양 보전 프로젝트입니다.\n\n" +
-                                        "기업과 다이버, 시민이 함께 참여하는 ESG 플로깅과 해양 정화 활동, 교육 프로그램을 통해 \"바다를 다시 푸르게\" 만들고자 합니다.\n\n" +
-                                        "MOBA에 대한 더 자세한 소개와 활동 내용은 아래 링크에서 확인하실 수 있습니다.",
+                                stringResource(R.string.moba_description),
                                 style = MaterialTheme.typography.bodyMedium
                             )
                             Spacer(modifier = Modifier.height(8.dp))
@@ -266,7 +340,7 @@ fun FreediveApp(
                             horizontalArrangement = Arrangement.End
                         ) {
                             TextButton(onClick = { showAbout = false }) {
-                                Text("닫기")
+                                Text(stringResource(R.string.close))
                             }
                         }
                     }

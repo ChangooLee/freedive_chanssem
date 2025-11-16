@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Freedive Chanssem</string>
+    
+    <!-- Tabs -->
+    <string name="tab_co2">CO₂</string>
+    <string name="tab_o2">O₂</string>
+    <string name="tab_one_breath">One Breath</string>
+    
+    <!-- Time Settings -->
+    <string name="hold_time">息止め時間</string>
+    <string name="breath_time">休息時間</string>
+    <string name="min_breath_time">最小休息時間</string>
+    <string name="difficulty_expert">エキスパート</string>
+    <string name="difficulty_normal">ノーマル</string>
+    <string name="difficulty_beginner">ビギナー</string>
+    <string name="target_hold_time">目標息止め時間</string>
+    <string name="one_breath_time">ワンブレス時間</string>
+    <string name="target_sta">目標STA: %1$s</string>
+    
+    <!-- Buttons -->
+    <string name="add_round">ラウンド追加 (+)</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    
+    <!-- Session -->
+    <string name="round_progress">Round %1$d / %2$d</string>
+    <string name="breath">Breath</string>
+    <string name="hold">Hold</string>
+    <string name="one_breath_label">One-breath</string>
+    
+    <!-- Dialog -->
+    <string name="session_stop_title">セッション停止</string>
+    <string name="session_stop_message">現在セッションが進行中です。セッションを停止して他のタブに移動しますか？</string>
+    <string name="stop_session">停止</string>
+    <string name="cancel">キャンセル</string>
+    <string name="close">閉じる</string>
+    
+    <!-- Time Input Dialog -->
+    <string name="time_input_title">時間設定</string>
+    <string name="minutes">分</string>
+    <string name="seconds">秒</string>
+    <string name="confirm">確認</string>
+    <string name="time_input_min_error">最低15秒以上を入力してください</string>
+    
+    <!-- About Dialog -->
+    <string name="about_title">About freedive chanssem &amp; MOBA</string>
+    <string name="chanssem_title">🧑‍🏫 チャンセンについて</string>
+    <string name="chanssem_description">PADIフリーダイビングインストラクタートレーナーであり水中撮影家のChanssem（イ・チャング）が作成したフリーダイビングトレーニングアプリです。\n\n安全で体系的なCO₂ / O₂ / ワンブレストレーニングを通じて、より長く、より快適に息を止めることができるようサポートします。\n\nフリーダイビングレッスン、ツアー、水中撮影、最新情報については、Instagramでご確認いただけます。</string>
+    <string name="moba_title">🌊 MOBA (Make Ocean Blue Again)</string>
+    <string name="moba_description">MOBA (Make Ocean Blue Again)は、フリーダイビング、プロギング、環境キャンペーンを通じて海と水を守る行動を続ける海洋保全プロジェクトです。\n\n企業、ダイバー、市民が一緒に参加するESGプロギング、海洋清掃活動、教育プログラムを通じて、「海を再び青く」することを目指しています。\n\nMOBAの詳細な紹介と活動内容については、以下のリンクでご確認いただけます。</string>
+    
+    <!-- Language -->
+    <string name="language_korean">한국어</string>
+    <string name="language_english">English</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_chinese">中文</string>
+    <string name="select_language">言語選択</string>
+</resources>
+

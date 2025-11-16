@@ -6,19 +6,21 @@ object TableGenerator {
 
     /**
      * CO₂ 테이블
-     * - 마지막 라운드 Breath = 15초
+     * - 마지막 라운드 Breath = minBreathMillis (기본 15초)
      * - 위로 올라갈수록 15초씩 증가
      * - Hold = 상단에서 설정한 holdMillis 고정 (기본 60초)
      */
     fun generateCo2Table(
         roundCount: Int,
+        minBreathMillis: Long,
         holdMillis: Long
     ): List<Round> {
+        val minBreathSeconds = (minBreathMillis / 1000).toInt()
         return (0 until roundCount).map { index ->
-            // 마지막 라운드(index = roundCount - 1)는 15초
+            // 마지막 라운드(index = roundCount - 1)는 minBreathSeconds
             // 위로 올라갈수록 15초씩 증가
-            // breathSeconds = (roundCount - index) * 15
-            val breathSeconds = (roundCount - index) * 15
+            // breathSeconds = minBreathSeconds + (roundCount - 1 - index) * 15
+            val breathSeconds = minBreathSeconds + (roundCount - 1 - index) * 15
             Round(
                 breathMillis = breathSeconds * 1000L,
                 holdMillis = holdMillis

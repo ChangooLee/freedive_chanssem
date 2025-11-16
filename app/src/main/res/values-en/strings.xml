@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Freedive Chanssem</string>
+    
+    <!-- Tabs -->
+    <string name="tab_co2">CO₂</string>
+    <string name="tab_o2">O₂</string>
+    <string name="tab_one_breath">One Breath</string>
+    
+    <!-- Time Settings -->
+    <string name="hold_time">Hold Time</string>
+    <string name="breath_time">Breath Time</string>
+    <string name="min_breath_time">Min Breath Time</string>
+    <string name="difficulty_expert">Expert</string>
+    <string name="difficulty_normal">Normal</string>
+    <string name="difficulty_beginner">Beginner</string>
+    <string name="target_hold_time">Target Hold Time</string>
+    <string name="one_breath_time">One-breath Time</string>
+    <string name="target_sta">Target STA: %1$s</string>
+    
+    <!-- Buttons -->
+    <string name="add_round">Add Round (+)</string>
+    <string name="start">START</string>
+    <string name="stop">STOP</string>
+    
+    <!-- Session -->
+    <string name="round_progress">Round %1$d / %2$d</string>
+    <string name="breath">Breath</string>
+    <string name="hold">Hold</string>
+    <string name="one_breath_label">One-breath</string>
+    
+    <!-- Dialog -->
+    <string name="session_stop_title">Stop Session</string>
+    <string name="session_stop_message">A session is currently in progress. Do you want to stop the session and switch to another tab?</string>
+    <string name="stop_session">Stop</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+    
+    <!-- Time Input Dialog -->
+    <string name="time_input_title">Set Time</string>
+    <string name="minutes">Minutes</string>
+    <string name="seconds">Seconds</string>
+    <string name="confirm">Confirm</string>
+    <string name="time_input_min_error">Please enter at least 15 seconds</string>
+    
+    <!-- About Dialog -->
+    <string name="about_title">About freedive chanssem &amp; MOBA</string>
+    <string name="chanssem_title">🧑‍🏫 About Chanssem</string>
+    <string name="chanssem_description">A freediving training app created by Chanssem (Lee Chan-gu), a PADI Freediving Instructor Trainer and underwater photographer.\n\nThrough safe and systematic CO₂ / O₂ / one-breath training, we aim to help you hold your breath longer and more comfortably.\n\nFor freediving lessons, tours, underwater photography, and the latest news, please check Instagram.</string>
+    <string name="moba_title">🌊 MOBA (Make Ocean Blue Again)</string>
+    <string name="moba_description">MOBA (Make Ocean Blue Again) is a marine conservation project that continues actions to protect the ocean and water through freediving, plogging, and environmental campaigns.\n\nThrough ESG plogging, marine cleanup activities, and educational programs involving companies, divers, and citizens, we aim to \"make the ocean blue again\".\n\nFor more detailed information about MOBA and its activities, please check the link below.</string>
+    
+    <!-- Language -->
+    <string name="language_korean">한국어</string>
+    <string name="language_english">English</string>
+    <string name="language_japanese">日本語</string>
+    <string name="language_chinese">中文</string>
+    <string name="select_language">Select Language</string>
+</resources>
+

@@ -10,9 +10,12 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.chanssem.freedive.R
 import com.chanssem.freedive.model.SessionPhase
 import com.chanssem.freedive.viewmodel.O2ViewModel
 
@@ -50,7 +53,7 @@ fun O2TableScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = "Round ${currentState!!.currentRoundIndex + 1} / ${currentState!!.totalRounds}",
+                        text = stringResource(R.string.round_progress, currentState!!.currentRoundIndex + 1, currentState!!.totalRounds),
                         style = MaterialTheme.typography.titleMedium
                     )
                     Spacer(modifier = Modifier.height(16.dp))
@@ -63,7 +66,7 @@ fun O2TableScreen(
                             modifier = Modifier.weight(1f)
                         ) {
                             Text(
-                                text = "Breath",
+                                text = stringResource(R.string.breath),
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = if (currentState!!.phase == SessionPhase.BREATH) {
                                     MaterialTheme.colorScheme.primary
@@ -92,7 +95,7 @@ fun O2TableScreen(
                             modifier = Modifier.weight(1f)
                         ) {
                             Text(
-                                text = "Hold",
+                                text = stringResource(R.string.hold),
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = if (currentState!!.phase == SessionPhase.HOLD) {
                                     MaterialTheme.colorScheme.primary
@@ -136,7 +139,7 @@ fun O2TableScreen(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = "휴식 시간",
+                            text = stringResource(R.string.breath_time),
                             style = MaterialTheme.typography.titleSmall
                         )
                         Spacer(modifier = Modifier.height(4.dp))
@@ -189,7 +192,7 @@ fun O2TableScreen(
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = "목표 숨참기 시간",
+                            text = stringResource(R.string.target_hold_time),
                             style = MaterialTheme.typography.titleSmall
                         )
                         Spacer(modifier = Modifier.height(4.dp))
@@ -241,7 +244,7 @@ fun O2TableScreen(
                         if (targetStaMillis > 0) {
                             Spacer(modifier = Modifier.height(4.dp))
                             Text(
-                                text = "목표 STA: ${TimeFormatter.formatMillis(targetStaMillis)}",
+                                text = stringResource(R.string.target_sta, TimeFormatter.formatMillis(targetStaMillis)),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.primary
                             )
@@ -265,7 +268,8 @@ fun O2TableScreen(
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(8.dp),
+                            .height(48.dp)
+                            .padding(horizontal = 8.dp),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -287,12 +291,13 @@ fun O2TableScreen(
                         if (index + 1 >= 7 && rounds.size > 6) {
                             IconButton(
                                 onClick = { viewModel.removeRound(index) },
-                                enabled = !isRunning
+                                enabled = !isRunning,
+                                modifier = Modifier.size(48.dp)
                             ) {
                                 Text("-")
                             }
                         } else {
-                            Spacer(modifier = Modifier.width(48.dp))
+                            Spacer(modifier = Modifier.size(48.dp))
                         }
                     }
                     HorizontalDivider()
@@ -308,7 +313,7 @@ fun O2TableScreen(
             modifier = Modifier.fillMaxWidth(),
             enabled = !isRunning
         ) {
-            Text("라운드 추가 (+)")
+            Text(stringResource(R.string.add_round))
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -326,7 +331,7 @@ fun O2TableScreen(
                 containerColor = if (isRunning) androidx.compose.ui.graphics.Color(0xFFD32F2F) else MaterialTheme.colorScheme.primary
             )
         ) {
-            Text(if (isRunning) "STOP" else "START")
+            Text(if (isRunning) stringResource(R.string.stop) else stringResource(R.string.start))
         }
     }
 
